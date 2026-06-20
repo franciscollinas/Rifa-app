@@ -1,0 +1,33 @@
+:root {
+  --color-primario:       #0077B6;
+  --color-primario-dark:  #005F92;
+  --color-acento:         #00B4D8;
+  --color-arena:          #F4E4C1;
+  --color-arena-dark:     #E8D4A0;
+
+  --color-fondo:          #F8F6F0;
+  --color-fondo-card:     #FFFFFF;
+  --color-texto-principal:#1C1C1E;
+  --color-texto-secundario:#6B7280;
+  --color-borde:          #E5E0D5;
+
+  --color-disponible:     #FFFFFF;
+  --color-disponible-borde:#D1D5DB;
+  --color-disponible-hover:#EBF8FF;
+  --color-seleccionado:   #0077B6;
+  --color-seleccionado-txt:#FFFFFF;
+  --color-reservado:      #FEF3C7;
+  --color-reservado-borde:#F59E0B;
+  --color-reservado-txt:  #92400E;
+  --color-pagado:         #FEE2E2;
+  --color-pagado-borde:   #EF4444;
+  --color-pagado-txt:     #991B1B;
+
+  --font-display:         'Playfair Display', Georgia, serif;
+  --font-body:            'Inter', system-ui, sans-serif;
+
+  --radio-sm:             6px;
+  --radio-md:             12px;
+  --radio-lg:             20px;
+  --sombra-card:          0 2px 16px rgba(0,119,182,0.08);
+}
