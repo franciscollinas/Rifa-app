@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin — Rifa Avadia del Mar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div id="login-screen">
+    <div class="login-bg"></div>
+    <div class="login-box">
+      <div class="login-header">
+        <h2>Panel Administrativo</h2>
+        <p>Rifa Casa Hotel Avadia del Mar</p>
+      </div>
+      <form id="login-form">
+        <div class="login-field">
+          <label>Correo electrónico</label>
+          <input type="email" id="login-email" placeholder="admin@ejemplo.com" required>
+        </div>
+        <div class="login-field">
+          <label>Contraseña</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" id="btn-login" class="admin-btn admin-btn-primary">Ingresar al panel</button>
+        <p id="login-error" class="login-error"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <nav class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-logo">Admin</span>
+        <span class="topbar-beneficio">Rifa — Avadia del Mar</span>
+      </div>
+      <div class="topbar-right">
+        <span id="admin-email-display" class="topbar-email"></span>
+        <button id="btn-logout" class="admin-btn admin-btn-outline">Cerrar sesion</button>
+      </div>
+    </nav>
+
+    <div class="dashboard-container">
+
+      <div class="infocards">
+        <div class="infocard infocard-vendidas">
+          <div class="infocard-label">Boletas Vendidas</div>
+          <div class="infocard-value"><span id="stats-vendidas">0</span> / 100</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-vendidas" style="width:0%"></div>
+          </div>
+          <div class="infocard-sub"><span id="stats-pct-vendidas">0</span>% completado</div>
+        </div>
+
+        <div class="infocard infocard-recaudado">
+          <div class="infocard-label">Total Recaudado</div>
+          <div class="infocard-value">$<span id="stats-recaudado">0</span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-recaudado" style="width:0%"></div>
+          </div>
+          <div class="infocard-sub">Meta: $2,000,000</div>
+        </div>
+
+        <div class="infocard infocard-pagadas">
+          <div class="infocard-label">Pagadas</div>
+          <div class="infocard-value" id="stats-pagadas">0</div>
+          <div class="infocard-footer-text">Confirmadas por el admin</div>
+        </div>
+
+        <div class="infocard infocard-pendientes">
+          <div class="infocard-label">Pendientes de pago</div>
+          <div class="infocard-value" id="stats-pendientes">0</div>
+          <div class="infocard-footer-text">Reservadas, esperando pago</div>
+        </div>
+
+        <div class="infocard infocard-ganador">
+          <div class="infocard-label">Ganador</div>
+          <div class="infocard-value" id="stats-ganador-numero">—</div>
+          <div class="infocard-sub" id="stats-ganador-nombre">Sin definir</div>
+        </div>
+      </div>
+
+      <div class="table-section">
+        <div class="table-header">
+          <h3>Compradores</h3>
+          <div class="table-controls">
+            <select id="filtro-estado" class="admin-select">
+              <option value="todos">Todos</option>
+              <option value="reservado">Pendientes</option>
+              <option value="pagado">Pagados</option>
+            </select>
+            <input type="text" id="buscador" class="admin-input" placeholder="Buscar por nombre o numero...">
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Estado</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Fecha</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-cuerpo"></tbody>
+          </table>
+        </div>
+        <p id="tabla-vacia" class="table-empty">No hay compradores que coincidan con los filtros.</p>
+      </div>
+
+      <div class="winner-section">
+        <h3>Seleccionar Ganador</h3>
+        <p class="winner-desc">Define el ganador de la rifa. Solo puede seleccionarse entre numeros pagados.</p>
+        <div class="winner-actions">
+          <div class="winner-action-card">
+            <h4>Sorteo aleatorio</h4>
+            <p>Elige un ganador al azar entre todas las boletas pagadas.</p>
+            <button id="btn-sortear" class="admin-btn admin-btn-gold" onclick="sortearGanador()">Sortear ganador</button>
+          </div>
+          <div class="winner-action-card">
+            <h4>Seleccion manual</h4>
+            <p>Elige manualmente un numero de la lista de pagados.</p>
+            <div class="winner-manual-row">
+              <select id="select-ganador-manual" class="admin-select">
+                <option value="">— Seleccionar —</option>
+              </select>
+              <button id="btn-asignar-manual" class="admin-btn admin-btn-primary" onclick="asignarGanadorManual()">Asignar</button>
+            </div>
+          </div>
+        </div>
+        <div id="winner-actual" class="winner-current" style="display:none;">
+          <div class="winner-badge">Ganador actual</div>
+          <div class="winner-current-info">
+            <span class="winner-current-numero" id="winner-actual-numero"></span>
+            <span class="winner-current-nombre" id="winner-actual-nombre"></span>
+            <span class="winner-current-fecha" id="winner-actual-fecha"></span>
+          </div>
+          <button class="admin-btn admin-btn-danger" onclick="resetearGanador()">Resetear ganador</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
