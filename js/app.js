@@ -8,32 +8,6 @@ const TOTAL_NUMEROS = 100;
 
 let numeroSeleccionado = null;
 
-const FECHA_LIMITE_PAGO = new Date(2026, 6, 15); // 15 de Julio de 2026
-
-function liberarReservadosVencidos() {
-  const ahora = new Date();
-  if (ahora <= FECHA_LIMITE_PAGO) return;
-
-  NUMEROS_REF.once('value').then(snapshot => {
-    const data = snapshot.val();
-    if (!data) return;
-    const updates = {};
-    Object.entries(data).forEach(([key, item]) => {
-      if (item.estado === 'reservado') {
-        updates[key] = {
-          estado: 'disponible',
-          comprador: null,
-          fecha_compra: null,
-          fecha_pago: null
-        };
-      }
-    });
-    if (Object.keys(updates).length > 0) {
-      NUMEROS_REF.update(updates);
-    }
-  });
-}
-
 function inicializarBase() {
   NUMEROS_REF.once('value').then(snapshot => {
     if (!snapshot.exists()) {
@@ -334,7 +308,6 @@ async function manejarEnvio(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  liberarReservadosVencidos();
   inicializarBase();
   initNavbar();
   initCountdown();
