@@ -38,12 +38,24 @@ AUTH.onAuthStateChanged(user => {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('admin-email-display').textContent = user.email;
+    const avatar = document.getElementById('admin-avatar');
+    if (avatar && user.email) {
+      avatar.textContent = iniciales(user.email.split('@')[0].replace(/[._-]/g, ' '));
+    }
     iniciarListeners();
   } else {
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('dashboard').style.display = 'none';
   }
 });
+
+function iniciales(nombre) {
+  if (!nombre) return '?';
+  const partes = nombre.trim().split(/\s+/).filter(Boolean);
+  if (partes.length === 0) return '?';
+  if (partes.length === 1) return partes[0].slice(0, 2).toUpperCase();
+  return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+}
 
 document.getElementById('btn-logout').addEventListener('click', () => {
   AUTH.signOut();
@@ -133,6 +145,7 @@ function renderTabla() {
   entries.forEach(([key, item]) => {
     const tr = document.createElement('tr');
     const estadoLabel = item.estado === 'reservado' ? 'Pendiente' : 'Pagado';
+    const nombreComprador = item.comprador?.nombre || '—';
     const fecha = item.fecha_compra
       ? new Date(item.fecha_compra).toLocaleDateString('es-CO', {
           day: '2-digit', month: '2-digit', year: 'numeric',
@@ -153,9 +166,14 @@ function renderTabla() {
     }
 
     tr.innerHTML = `
-      <td><strong>${key}</strong></td>
+      <td><span class="numero-chip">${key}</span></td>
       <td><span class="estado-badge ${item.estado}">${estadoLabel}</span></td>
-      <td>${item.comprador?.nombre || '—'}</td>
+      <td>
+        <div class="comprador-cell">
+          <span class="buyer-avatar ${item.estado}">${iniciales(nombreComprador)}</span>
+          <span class="buyer-nombre">${nombreComprador}</span>
+        </div>
+      </td>
       <td>${item.comprador?.telefono || '—'}</td>
       <td>${item.comprador?.correo || '—'}</td>
       <td style="font-size:0.8rem;color:var(--admin-text-sec)">${fecha}</td>

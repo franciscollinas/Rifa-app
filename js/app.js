@@ -106,7 +106,86 @@ function generarGrilla(data) {
 
   const countEl = document.getElementById('disponibles-count');
   if (countEl) countEl.textContent = disponibles;
+  actualizarProgreso(data);
   actualizarBotonCompra();
+}
+
+function actualizarProgreso(data) {
+  let vendidas = 0;
+  for (let i = 0; i < TOTAL_NUMEROS; i++) {
+    const item = data[i.toString().padStart(2, '0')];
+    if (item && (item.estado === 'reservado' || item.estado === 'pagado')) vendidas++;
+  }
+  const porcentaje = Math.min(100, Math.round((vendidas / TOTAL_NUMEROS) * 100));
+  const relleno = document.getElementById('progreso-relleno');
+  if (relleno) relleno.style.width = porcentaje + '%';
+  const vendidasEl = document.getElementById('vendidas-count');
+  if (vendidasEl) vendidasEl.textContent = vendidas;
+}
+
+/* ===== Countdown al sorteo (Lotería La Caribeña) ===== */
+const FECHA_SORTEO = new Date(2026, 7, 1, 20, 0, 0); // 1 Ago 2026, 8:00 PM
+
+function initCountdown() {
+  const dias = document.getElementById('cd-dias');
+  const horas = document.getElementById('cd-horas');
+  const min = document.getElementById('cd-min');
+  const seg = document.getElementById('cd-seg');
+  if (!dias || !horas || !min || !seg) return;
+
+  const pad = n => String(n).padStart(2, '0');
+
+  function tick() {
+    const diff = FECHA_SORTEO - new Date();
+    if (diff <= 0) {
+      dias.textContent = '0';
+      horas.textContent = '00';
+      min.textContent = '00';
+      seg.textContent = '00';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    dias.textContent = d;
+    horas.textContent = pad(h);
+    min.textContent = pad(m);
+    seg.textContent = pad(s);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ===== Navbar al hacer scroll ===== */
+function initNavbar() {
+  const nav = document.getElementById('navbar');
+  if (!nav) return;
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+/* ===== Reveal al hacer scroll ===== */
+function initReveal() {
+  const elementos = document.querySelectorAll('.reveal');
+  if (!elementos.length) return;
+  if (!('IntersectionObserver' in window)) {
+    elementos.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  elementos.forEach(el => observer.observe(el));
 }
 
 function renderizarLista(data) {
@@ -257,6 +336,9 @@ async function manejarEnvio(event) {
 document.addEventListener('DOMContentLoaded', () => {
   liberarReservadosVencidos();
   inicializarBase();
+  initNavbar();
+  initCountdown();
+  initReveal();
 
   document.getElementById('btn-comprar').addEventListener('click', abrirModal);
   document.getElementById('btn-cancelar-modal').addEventListener('click', cerrarModal);

@@ -14,6 +14,17 @@
   <div id="login-screen">
     <div class="login-bg"></div>
     <div class="login-box">
+      <div class="login-brand">
+        <div class="login-brand-mark">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 19c2.5-4 6-6 9-6s6.5 2 9 6"/>
+            <path d="M12 13V5"/>
+            <circle cx="12" cy="3.5" r="1.6"/>
+            <path d="M5 19h14"/>
+          </svg>
+        </div>
+        <span class="login-brand-name">Avadia del Mar</span>
+      </div>
       <div class="login-header">
         <h2>Panel Administrativo</h2>
         <p>Rifa Casa Hotel Avadia del Mar</p>
@@ -40,16 +51,35 @@
         <span class="topbar-beneficio">Rifa — Avadia del Mar</span>
       </div>
       <div class="topbar-right">
-        <span id="admin-email-display" class="topbar-email"></span>
+        <div class="topbar-user">
+          <span class="topbar-user-avatar" id="admin-avatar">A</span>
+          <span id="admin-email-display" class="topbar-email"></span>
+        </div>
         <button id="btn-logout" class="admin-btn admin-btn-outline">Cerrar sesion</button>
       </div>
     </nav>
 
     <div class="dashboard-container">
 
+      <header class="dashboard-hero">
+        <div class="dashboard-hero-text">
+          <h1>Panel de control</h1>
+          <p>Resumen en vivo de la rifa Casa Hotel Avadia del Mar</p>
+        </div>
+        <div class="dashboard-hero-badge">
+          <span class="pulse-dot"></span>
+          <span>En vivo</span>
+        </div>
+      </header>
+
       <div class="infocards">
         <div class="infocard infocard-vendidas">
-          <div class="infocard-label">Boletas Vendidas</div>
+          <div class="infocard-top">
+            <div class="infocard-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
+            </div>
+            <div class="infocard-label">Boletas Vendidas</div>
+          </div>
           <div class="infocard-value"><span id="stats-vendidas">0</span> / 100</div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-vendidas" style="width:0%"></div>
@@ -58,7 +88,12 @@
         </div>
 
         <div class="infocard infocard-recaudado">
-          <div class="infocard-label">Total Recaudado</div>
+          <div class="infocard-top">
+            <div class="infocard-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="infocard-label">Total Recaudado</div>
+          </div>
           <div class="infocard-value">$<span id="stats-recaudado">0</span></div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-recaudado" style="width:0%"></div>
@@ -67,19 +102,34 @@
         </div>
 
         <div class="infocard infocard-pagadas">
-          <div class="infocard-label">Pagadas</div>
+          <div class="infocard-top">
+            <div class="infocard-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="infocard-label">Pagadas</div>
+          </div>
           <div class="infocard-value" id="stats-pagadas">0</div>
           <div class="infocard-footer-text">Confirmadas por el admin</div>
         </div>
 
         <div class="infocard infocard-pendientes">
-          <div class="infocard-label">Pendientes de pago</div>
+          <div class="infocard-top">
+            <div class="infocard-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div class="infocard-label">Pendientes de pago</div>
+          </div>
           <div class="infocard-value" id="stats-pendientes">0</div>
           <div class="infocard-footer-text">Reservadas, esperando pago</div>
         </div>
 
         <div class="infocard infocard-ganador">
-          <div class="infocard-label">Ganador</div>
+          <div class="infocard-top">
+            <div class="infocard-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v2a3 3 0 0 0 3 3"/><path d="M17 6h3v2a3 3 0 0 1-3 3"/></svg>
+            </div>
+            <div class="infocard-label">Ganador</div>
+          </div>
           <div class="infocard-value" id="stats-ganador-numero">—</div>
           <div class="infocard-sub" id="stats-ganador-nombre">Sin definir</div>
         </div>
@@ -87,7 +137,10 @@
 
       <div class="table-section">
         <div class="table-header">
-          <h3>Compradores</h3>
+          <h3>
+            <svg class="title-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Compradores
+          </h3>
           <div class="table-controls">
             <select id="filtro-estado" class="admin-select">
               <option value="todos">Todos</option>
@@ -117,16 +170,31 @@
       </div>
 
       <div class="winner-section">
-        <h3>Seleccionar Ganador</h3>
-        <p class="winner-desc">Define el ganador de la rifa. Solo puede seleccionarse entre numeros pagados.</p>
+        <div class="winner-section-head">
+          <div class="winner-section-title">
+            <span class="winner-section-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v2a3 3 0 0 0 3 3"/><path d="M17 6h3v2a3 3 0 0 1-3 3"/></svg>
+            </span>
+            <div>
+              <h3>Seleccionar Ganador</h3>
+              <p class="winner-desc">Define el ganador de la rifa. Solo puede seleccionarse entre numeros pagados.</p>
+            </div>
+          </div>
+        </div>
         <div class="winner-actions">
           <div class="winner-action-card">
-            <h4>Sorteo aleatorio</h4>
+            <h4>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg>
+              Sorteo aleatorio
+            </h4>
             <p>Elige un ganador al azar entre todas las boletas pagadas.</p>
             <button id="btn-sortear" class="admin-btn admin-btn-gold" onclick="sortearGanador()">Sortear ganador</button>
           </div>
           <div class="winner-action-card">
-            <h4>Seleccion manual</h4>
+            <h4>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              Seleccion manual
+            </h4>
             <p>Elige manualmente un numero de la lista de pagados.</p>
             <div class="winner-manual-row">
               <select id="select-ganador-manual" class="admin-select">
@@ -137,7 +205,10 @@
           </div>
         </div>
         <div id="winner-actual" class="winner-current" style="display:none;">
-          <div class="winner-badge">Ganador actual</div>
+          <div class="winner-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/></svg>
+            Ganador actual
+          </div>
           <div class="winner-current-info">
             <span class="winner-current-numero" id="winner-actual-numero"></span>
             <span class="winner-current-nombre" id="winner-actual-nombre"></span>

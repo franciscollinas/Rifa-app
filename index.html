@@ -12,6 +12,20 @@
 </head>
 <body>
 
+  <!-- ===== NAVBAR ===== -->
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">🥋 Mantis Box</a>
+      <nav class="nav-links">
+        <a href="#info-rifa">La Rifa</a>
+        <a href="#vitrina-premio">Premio</a>
+        <a href="#proposito">Propósito</a>
+        <a href="#seccion-numeros">Números</a>
+      </nav>
+      <a href="#seccion-numeros" class="btn-primario nav-cta">Comprar número</a>
+    </div>
+  </header>
+
   <!-- ===== HERO ===== -->
   <section id="hero">
     <div class="hero-bg"></div>
@@ -33,13 +47,36 @@
           <span class="hero-destacado-valor">$20.000</span>
         </div>
       </div>
+      <div class="hero-countdown" id="hero-countdown" aria-label="Tiempo restante para el sorteo">
+        <div class="countdown-item">
+          <span class="countdown-num" id="cd-dias">--</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cd-horas">--</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cd-min">--</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cd-seg">--</span>
+          <span class="countdown-label">Seg</span>
+        </div>
+      </div>
+      <p class="hero-countdown-label">⏳ Faltan para el gran sorteo · Lotería La Caribeña</p>
       <a href="#seccion-numeros" class="btn-primario btn-hero">Comprar mi número ↓</a>
     </div>
+    <a href="#info-rifa" class="hero-scroll" aria-label="Desplazar hacia abajo"><span></span></a>
   </section>
 
   <!-- ===== INFO RIFA ===== -->
   <section id="info-rifa">
-    <div class="container">
+    <div class="container reveal">
       <h2 class="section-title">Información de la Rifa</h2>
       <div class="info-rifa-grid">
         <div class="info-rifa-card info-rifa-card-accent">
@@ -74,9 +111,37 @@
     </div>
   </section>
 
+  <!-- ===== CÓMO FUNCIONA ===== -->
+  <section id="como-funciona">
+    <div class="container reveal">
+      <h2 class="section-title">¿Cómo participar?</h2>
+      <p class="section-subtitle">Tres pasos sencillos para apoyar la escuela y ganarte Cartagena</p>
+      <div class="pasos-grid">
+        <div class="paso-item">
+          <div class="paso-num">1</div>
+          <span class="paso-icon">🎯</span>
+          <h3>Elige tu número</h3>
+          <p>Selecciona tu número de la suerte en la cuadrícula y resérvalo al instante.</p>
+        </div>
+        <div class="paso-item">
+          <div class="paso-num">2</div>
+          <span class="paso-icon">💳</span>
+          <h3>Paga tu boleta</h3>
+          <p>$20.000 por número. Paga por el código QR antes del 15 de julio y queda confirmado.</p>
+        </div>
+        <div class="paso-item">
+          <div class="paso-num">3</div>
+          <span class="paso-icon">🏆</span>
+          <h3>Participa y gana</h3>
+          <p>El sorteo es el 1 de agosto con la Lotería La Caribeña. ¡Mucha suerte!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PROPÓSITO ===== -->
   <section id="proposito">
-    <div class="container">
+    <div class="container reveal">
       <div class="proposito-header">
         <h2 class="section-title">¿Por qué jugamos esta rifa?</h2>
         <p class="section-subtitle">Todo lo recaudado será destinado a los estudiantes de la <strong>Escuela de Kung Fu Mantis Box de Sabanalarga</strong> para cubrir:</p>
@@ -112,7 +177,7 @@
 
   <!-- ===== VITRINA DEL PREMIO ===== -->
   <section id="vitrina-premio">
-    <div class="container">
+    <div class="container reveal">
       <h2 class="section-title">🏖️ El Premio</h2>
       <p class="section-subtitle">2 noches en Casa Hotel Avadia del Mar — La Boquilla, Cartagena</p>
       <div class="premio-cards">
@@ -140,9 +205,16 @@
 
   <!-- ===== CUADRICULA DE NUMEROS ===== -->
   <section id="seccion-numeros">
-    <div class="container">
+    <div class="container reveal">
       <h2 class="section-title">Selecciona tu número de la suerte</h2>
       <p class="section-subtitle">Solo quedan <span id="disponibles-count">100</span> números disponibles · <strong>$20.000 c/u</strong></p>
+
+      <div class="progreso-ventas">
+        <div class="progreso-barra">
+          <div class="progreso-relleno" id="progreso-relleno"></div>
+        </div>
+        <p class="progreso-texto"><span id="vendidas-count">0</span> de 100 boletas apartadas 🥋</p>
+      </div>
 
       <div class="leyenda">
         <span class="leyenda-item"><span class="leyenda-box disponible"></span> Disponible</span>
